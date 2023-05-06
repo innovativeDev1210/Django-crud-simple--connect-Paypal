@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+	
+    <h1 class="my-4">This is the My Wallet{% if request.path == '/wallet/new/' %} Create {% else %} Edit {% endif %}page
+        {% if request.path != '/wallet/new/' %}<small>{{ book.name }}</small>{% endif %}
+    </h1>
+    <div class="row">
+        <div class="col-12">
+            <p>Name: {{ user.first_name }} {{ user.last_name }}</p>
+            <p>Username: {{ user.username}}</p>
+            <p>Email: {{ user.email }}</p>
+            <p>Balance: {{ user.password }}</p>
+            <form method="POST" action="/wallet/form/">
+                {% csrf_token %}
+                <div class="input-group inline-group mt-3 mb-3">
+                    <select name='monetary_unit' class="form-control" value={{wal.monetary_unit}}>
+                        <option value='$' {% if wal.monetary_unit == '$' %}selected{% endif %}>$</option>
+                        <option value='£' {% if wal.monetary_unit == '£' %}selected{% endif %}>£</option>
+                    </select>
+                    <input type="number" name='balance' class="form-control" placeholder="Balance" style="width: 90%;" value={{wal.balance}}>
+                </div>
+                <button type='submit' class='btn btn-primary'>Create My Wallet</button>
+            </form>
+        </div>
+    </div>
+
+{% endif %}
+
+{% endblock %}

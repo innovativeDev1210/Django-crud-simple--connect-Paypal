@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="text-center">Register</h2>
+
+<div class="col-md-6 offset-md-3">
+	<form method="POST" action="{% url 'register' %}">
+		{% csrf_token %}
+
+		{% if form.errors %}
+			<div class="alert alert-warning alert-dismissable" role="alert">
+            <button class="close" data-dismiss="alert">
+                    <small><sup>x</sup></small>
+                </button>
+            <p>Your Form Has Errors...</p>
+            {% for field in form %}
+            	{% if field.errors  %}
+            		{{ field.errors }}
+            	{% endif %}
+
+            {% endfor %}
+
+          </div>
+
+
+		{% endif %}
+		
+       
+			{{ form.as_p }}
+
+		<input type="submit" value="Register" class="btn btn-secondary">
+	</form>
+</div>
+<br/><br/>
+{% endblock %}
+

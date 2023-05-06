@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="text-center">Edit Profile</h2>
+
+
+	<form method="POST" action="{% url 'edit_profile' %}">
+		{% csrf_token %}
+
+		{% if form.errors %}
+			<div class="alert alert-warning alert-dismissable" role="alert">
+            <button class="close" data-dismiss="alert">
+                    <small><sup>x</sup></small>
+                </button>
+            <p>Your Form Has Errors...</p>
+            {% for field in form %}
+            	{% if field.errors  %}
+            		{{ field.errors }}
+            	{% endif %}
+
+            {% endfor %}
+
+          </div>
+
+
+		{% endif %}
+		
+       
+			{{ form.as_p }}
+
+
+		<input type="submit" value="Edit Profile" class="btn btn-secondary">
+	</form>
+    <br/>
+    <p><small><a href="{% url 'change_password' %}">Click Here</a> To Change Your Password</small></p>
+
+<br/><br/>
+{% endblock %}
+
